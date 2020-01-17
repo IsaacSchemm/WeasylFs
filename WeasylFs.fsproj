@@ -7,9 +7,12 @@
   <ItemGroup>
     <Compile Include="IWeasylCredentials.fs" />
     <Compile Include="Shared.fs" />
+    <Compile Include="Media.fs" />
+    <Compile Include="Submission.fs" />
     <Compile Include="Endpoints\Version.fs" />
     <Compile Include="Endpoints\Whoami.fs" />
     <Compile Include="Endpoints\UserAvatar.fs" />
+    <Compile Include="Endpoints\UserGallery.fs" />
   </ItemGroup>
 
   <ItemGroup>
