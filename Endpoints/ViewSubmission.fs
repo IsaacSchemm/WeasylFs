@@ -1,14 +1,21 @@
 ﻿namespace WeasylFs.Endpoints
 
 open WeasylFs
-open System.IO
-open FSharp.Json
 open System
 
 module ViewSubmission =
     type Request() =
         member val Anyway = false with get, set
         member val IncrementViews = false with get, set
+
+        member this.QueryString =
+            seq {
+                if this.Anyway then
+                    yield ("anyway", "true")
+                if this.IncrementViews then
+                    yield ("increment_views", "true")
+            }
+            |> Util.BuildQueryString
 
     type Response = {
         rating: string
@@ -44,22 +51,10 @@ module ViewSubmission =
             this.folderid
             |> Option.toNullable
 
-    let AsyncExecute credentials (parameters: Request) submitid = async {
-        let query = seq {
-            if parameters.Anyway then
-                yield ("anyway", "true")
-            if parameters.IncrementViews then
-                yield ("increment_views", "true")
-        }
-        let qs = Shared.buildQueryString query
-        let url = sprintf "/api/submissions/%d/view?%s" submitid qs 
-        let req = Shared.createRequest credentials url
-        let! resp = req.AsyncGetResponse()
-        use sr = new StreamReader(resp.GetResponseStream())
-        let! json = sr.ReadToEndAsync() |> Async.AwaitTask
-        System.IO.File.WriteAllText("C:/Users/admin/Desktop/out.json", json)
-        return Json.deserialize<Response> json
-    }
+    let AsyncExecute credentials (parameters: Request) submitid =
+        sprintf "/api/submissions/%d/view?%s" submitid parameters.QueryString
+        |> Util.CreateRequest credentials
+        |> Util.AsyncReadJson<Response>
 
     let ExecuteAsync credentials parameters submitid =
         AsyncExecute credentials parameters submitid

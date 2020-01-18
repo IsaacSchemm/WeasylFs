@@ -1,8 +1,6 @@
 ﻿namespace WeasylFs.Endpoints
 
 open WeasylFs
-open System.IO
-open FSharp.Json
 open System
 open System.Net
 
@@ -57,14 +55,10 @@ module ViewUser =
             | Some s -> Seq.singleton s
             | None -> Seq.empty
 
-    let AsyncExecute credentials username = async {
-        let url = sprintf "/api/users/%s/view" (WebUtility.UrlEncode username)
-        let req = Shared.createRequest credentials url
-        let! resp = req.AsyncGetResponse()
-        use sr = new StreamReader(resp.GetResponseStream())
-        let! json = sr.ReadToEndAsync() |> Async.AwaitTask
-        return Json.deserialize<Response> json
-    }
+    let AsyncExecute credentials username =
+        sprintf "/api/users/%s/view" (WebUtility.UrlEncode username)
+        |> Util.CreateRequest credentials
+        |> Util.AsyncReadJson<Response>
 
     let ExecuteAsync credentials username =
         AsyncExecute credentials username

@@ -1,8 +1,6 @@
 ﻿namespace WeasylFs.Endpoints
 
 open WeasylFs
-open System.IO
-open FSharp.Json
 open System
 open System.Net
 
@@ -13,6 +11,21 @@ module UserGallery =
         member val FolderId = Nullable<int>() with get, set
         member val BackId = Nullable<int>() with get, set
         member val NextId = Nullable<int>() with get, set
+
+        member this.QueryString =
+            seq {
+                if this.Since.HasValue then
+                    yield ("since", this.Since.Value.ToString("o"))
+                if this.Count.HasValue then
+                    yield ("count", this.Count.Value.ToString())
+                if this.FolderId.HasValue then
+                    yield ("folderid", this.FolderId.Value.ToString())
+                if this.BackId.HasValue then
+                    yield ("backid", this.BackId.Value.ToString())
+                if this.NextId.HasValue then
+                    yield ("nextid", this.NextId.Value.ToString())
+            }
+            |> Util.BuildQueryString
 
     type Response = {
         submissions: Submission list
@@ -26,27 +39,10 @@ module UserGallery =
             this.nextid
             |> Option.toNullable
 
-    let AsyncExecute credentials (parameters: Request) username = async {
-        let query = seq {
-            if parameters.Since.HasValue then
-                yield ("since", parameters.Since.Value.ToString("o"))
-            if parameters.Count.HasValue then
-                yield ("count", parameters.Count.Value.ToString())
-            if parameters.FolderId.HasValue then
-                yield ("folderid", parameters.FolderId.Value.ToString())
-            if parameters.BackId.HasValue then
-                yield ("backid", parameters.BackId.Value.ToString())
-            if parameters.NextId.HasValue then
-                yield ("nextid", parameters.NextId.Value.ToString())
-        }
-        let qs = Shared.buildQueryString query
-        let url = sprintf "/api/users/%s/gallery?%s" (WebUtility.UrlEncode username) qs
-        let req = Shared.createRequest credentials url
-        let! resp = req.AsyncGetResponse()
-        use sr = new StreamReader(resp.GetResponseStream())
-        let! json = sr.ReadToEndAsync() |> Async.AwaitTask
-        return Json.deserialize<Response> json
-    }
+    let AsyncExecute credentials (parameters: Request) username =
+        sprintf "/api/users/%s/gallery?%s" (WebUtility.UrlEncode username) (parameters.QueryString)
+        |> Util.CreateRequest credentials
+        |> Util.AsyncReadJson<Response>
 
     let ExecuteAsync credentials parameters username =
         AsyncExecute credentials parameters username
