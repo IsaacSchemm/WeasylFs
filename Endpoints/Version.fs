@@ -8,7 +8,7 @@ module Version =
     }
 
     let AsyncExecute credentials =
-        "/api/version"
+        "api/version"
         |> Util.CreateRequest credentials
         |> Util.AsyncReadJson<Response>
 

@@ -9,7 +9,7 @@ module Whoami =
     }
 
     let AsyncExecute credentials =
-        "/api/whoami"
+        "api/whoami"
         |> Util.CreateRequest credentials
         |> Util.AsyncReadJson<Response>
 

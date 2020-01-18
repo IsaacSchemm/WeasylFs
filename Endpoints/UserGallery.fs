@@ -40,7 +40,7 @@ module UserGallery =
             |> Option.toNullable
 
     let AsyncExecute credentials (parameters: Request) username =
-        sprintf "/api/users/%s/gallery?%s" (WebUtility.UrlEncode username) (parameters.QueryString)
+        sprintf "api/users/%s/gallery?%s" (WebUtility.UrlEncode username) (parameters.QueryString)
         |> Util.CreateRequest credentials
         |> Util.AsyncReadJson<Response>
 

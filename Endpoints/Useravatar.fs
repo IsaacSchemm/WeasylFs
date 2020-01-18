@@ -14,7 +14,7 @@ module UserAvatar =
         let req =
             username
             |> Uri.EscapeUriString
-            |> sprintf "/api/useravatar?username=%s"
+            |> sprintf "api/useravatar?username=%s"
             |> Util.CreateRequest credentials
         let! resp = req.AsyncGetResponse()
         use sr = new StreamReader(resp.GetResponseStream())

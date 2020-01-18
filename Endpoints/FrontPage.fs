@@ -18,7 +18,7 @@ module FrontPage =
             |> Util.BuildQueryString
 
     let AsyncExecute credentials (parameters: Request) =
-        sprintf "/api/submissions/frontpage?%s" parameters.QueryString
+        sprintf "api/submissions/frontpage?%s" parameters.QueryString
         |> Util.CreateRequest credentials
         |> Util.AsyncReadJson<Submission list>
 

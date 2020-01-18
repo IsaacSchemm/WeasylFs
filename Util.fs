@@ -9,8 +9,15 @@ module Util =
     let DefaultWeasylUri = new Uri("https://www.weasyl.com")
 
     let CreateRequest (credentials: IWeasylCredentials) (path: string) =
-        let req = new Uri(DefaultWeasylUri, path) |> WebRequest.CreateHttp
-        req.Headers.Add("X-Weasyl-API-Key", credentials.ApiKey)
+        let baseUri =
+            match credentials with
+            | :? IAlternateWeasylUri as a -> a.Uri
+            | _ -> DefaultWeasylUri
+        let req =
+            new Uri(baseUri, path)
+            |> WebRequest.CreateHttp
+        if not (isNull credentials.ApiKey) then
+            req.Headers.Add("X-Weasyl-API-Key", credentials.ApiKey)
         req
 
     let AsyncReadJson<'a> (req: WebRequest) = async {

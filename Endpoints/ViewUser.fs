@@ -56,7 +56,7 @@ module ViewUser =
             | None -> Seq.empty
 
     let AsyncExecute credentials username =
-        sprintf "/api/users/%s/view" (WebUtility.UrlEncode username)
+        sprintf "api/users/%s/view" (WebUtility.UrlEncode username)
         |> Util.CreateRequest credentials
         |> Util.AsyncReadJson<Response>
 

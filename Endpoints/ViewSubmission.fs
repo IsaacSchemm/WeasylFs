@@ -52,7 +52,7 @@ module ViewSubmission =
             |> Option.toNullable
 
     let AsyncExecute credentials (parameters: Request) submitid =
-        sprintf "/api/submissions/%d/view?%s" submitid parameters.QueryString
+        sprintf "api/submissions/%d/view?%s" submitid parameters.QueryString
         |> Util.CreateRequest credentials
         |> Util.AsyncReadJson<Response>
 
