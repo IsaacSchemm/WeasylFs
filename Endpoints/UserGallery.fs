@@ -18,7 +18,13 @@ module UserGallery =
         submissions: Submission list
         backid: int option
         nextid: int option
-    }
+    } with
+        member this.NullableBackId =
+            this.backid
+            |> Option.toNullable
+        member this.NullableNextId =
+            this.nextid
+            |> Option.toNullable
 
     let AsyncExecute credentials (parameters: Request) username = async {
         let query = seq {
