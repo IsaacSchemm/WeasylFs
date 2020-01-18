@@ -7,21 +7,12 @@ open System
 open System.Net
 
 module UserGallery =
-    type Request = {
-        since: DateTimeOffset option
-        count: int option
-        folderid: int option
-        backid: int option
-        nextid: int option
-    }
-
-    let DefaultRequest = {
-        since = None
-        count = None
-        folderid = None
-        backid = None
-        nextid = None
-    }
+    type Request() =
+        member val Since = Nullable<DateTimeOffset>() with get, set
+        member val Count = Nullable<int>() with get, set
+        member val FolderId = Nullable<int>() with get, set
+        member val BackId = Nullable<int>() with get, set
+        member val NextId = Nullable<int>() with get, set
 
     type Response = {
         submissions: Submission list
@@ -29,30 +20,22 @@ module UserGallery =
         nextid: int option
     }
 
-    let AsyncExecute credentials parameters username = async {
-        let qs =
-            seq {
-                match parameters.since with
-                | Some s -> yield ("since", s.ToString "o")
-                | None -> ()
-                match parameters.count with
-                | Some s -> yield ("count", sprintf "%d" s)
-                | None -> ()
-                match parameters.folderid with
-                | Some s -> yield ("folderid", sprintf "%d" s)
-                | None -> ()
-                match parameters.backid with
-                | Some s -> yield ("backid", sprintf "%d" s)
-                | None -> ()
-                match parameters.nextid with
-                | Some s -> yield ("nextid", sprintf "%d" s)
-                | None -> ()
-            }
-            |> Seq.map (fun (k, v) -> sprintf "%s=%s" (WebUtility.UrlEncode k) (WebUtility.UrlEncode v))
-            |> String.concat "&"
-        let req =
-            sprintf "/api/users/%s/gallery?%s" (WebUtility.UrlEncode username) qs
-            |> Shared.createRequest credentials
+    let AsyncExecute credentials (parameters: Request) username = async {
+        let query = seq {
+            if parameters.Since.HasValue then
+                yield ("since", parameters.Since.Value.ToString("o"))
+            if parameters.Count.HasValue then
+                yield ("count", parameters.Count.Value.ToString())
+            if parameters.FolderId.HasValue then
+                yield ("folderid", parameters.FolderId.Value.ToString())
+            if parameters.BackId.HasValue then
+                yield ("backid", parameters.BackId.Value.ToString())
+            if parameters.NextId.HasValue then
+                yield ("nextid", parameters.NextId.Value.ToString())
+        }
+        let qs = Shared.buildQueryString query
+        let url = sprintf "/api/users/%s/gallery?%s" (WebUtility.UrlEncode username) qs
+        let req = Shared.createRequest credentials url
         let! resp = req.AsyncGetResponse()
         use sr = new StreamReader(resp.GetResponseStream())
         let! json = sr.ReadToEndAsync() |> Async.AwaitTask

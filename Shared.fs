@@ -10,3 +10,9 @@ module internal Shared =
         let req = new Uri(weasyl_uri, path) |> WebRequest.CreateHttp
         req.Headers.Add("X-Weasyl-API-Key", credentials.ApiKey)
         req
+
+    let buildQueryString (parameters: (string * string) seq) =
+        parameters
+        |> Seq.map (fun (k, v) -> WebUtility.UrlEncode k, WebUtility.UrlEncode v)
+        |> Seq.map (fun (k, v) -> sprintf "%s=%s" k v)
+        |> String.concat "&"
