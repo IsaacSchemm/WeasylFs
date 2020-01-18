@@ -33,7 +33,16 @@ module ViewSubmission =
         folderid: int option
         views: int
         friends_only: bool
-    }
+    } with
+        member this.EmbedLinkOrNull =
+            this.embedlink
+            |> Option.toObj
+        member this.FolderNameOrNull =
+            this.folder_name
+            |> Option.toObj
+        member this.FolderIdOrNull =
+            this.folderid
+            |> Option.toNullable
 
     let AsyncExecute credentials (parameters: Request) submitid = async {
         let query = seq {

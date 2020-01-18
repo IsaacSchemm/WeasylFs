@@ -14,6 +14,7 @@
     <Compile Include="Endpoints\UserAvatar.fs" />
     <Compile Include="Endpoints\FrontPage.fs" />
     <Compile Include="Endpoints\ViewSubmission.fs" />
+    <Compile Include="Endpoints\ViewUser.fs" />
     <Compile Include="Endpoints\UserGallery.fs" />
   </ItemGroup>
 
