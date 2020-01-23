@@ -32,10 +32,10 @@ module UserGallery =
         backid: int option
         nextid: int option
     } with
-        member this.NullableBackId =
+        member this.backid_or_null =
             this.backid
             |> Option.toNullable
-        member this.NullableNextId =
+        member this.nextid_or_null =
             this.nextid
             |> Option.toNullable
 

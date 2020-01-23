@@ -41,13 +41,13 @@ module SubmissionView =
         views: int
         friends_only: bool
     } with
-        member this.EmbedLinkOrNull =
+        member this.embed_link_or_null =
             this.embedlink
             |> Option.toObj
-        member this.FolderNameOrNull =
+        member this.folder_name_or_null =
             this.folder_name
             |> Option.toObj
-        member this.FolderIdOrNull =
+        member this.folder_id_or_null =
             this.folderid
             |> Option.toNullable
 

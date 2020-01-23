@@ -5,9 +5,9 @@ type Media = {
     mediaid: int option
     links: Map<string, Media list> option
 } with
-    member this.NullableMediaId =
+    member this.mediaid_or_null =
         this.mediaid
         |> Option.toNullable
-    member this.LinksOrEmpty =
+    member this.links_or_empty =
         this.links
         |> Option.defaultValue Map.empty

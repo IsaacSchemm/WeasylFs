@@ -29,10 +29,10 @@ module MessageSubmissions =
         [<JsonField(Transform=typeof<DateTimeOffsetEpoch>)>]
         nexttime: DateTimeOffset option
     } with
-        member this.NullableBackTime =
+        member this.backtime_or_null =
             this.backtime
             |> Option.toNullable
-        member this.NullableNextTime =
+        member this.nexttime_or_null =
             this.nexttime
             |> Option.toNullable
 

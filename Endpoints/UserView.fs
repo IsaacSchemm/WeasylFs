@@ -16,7 +16,7 @@ module UserView =
         location: string
         gender: string
     } with
-        member this.AgeOrNull =
+        member this.age_or_null =
             this.age
             |> Option.toNullable
 
@@ -44,13 +44,13 @@ module UserView =
         stream_url: string
         login_name: string
     } with
-        member this.StatisticsOrEmpty =
+        member this.statistics_or_empty =
             this.statistics
             |> Option.defaultValue Map.empty
-        member this.StreamTextOrNull =
+        member this.stream_text_or_null =
             this.stream_text
             |> Option.toObj
-        member this.FeaturedSubmissionSingletonOrEmpty =
+        member this.featured_submissions =
             match this.featured_submission with
             | Some s -> Seq.singleton s
             | None -> Seq.empty
