@@ -4,7 +4,7 @@ open WeasylFs
 open System
 open System.Net
 
-module ViewUser =
+module UserView =
     type Folder = {
         folder_id: int
         title: string

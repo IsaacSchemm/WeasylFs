@@ -13,9 +13,10 @@
     <Compile Include="Endpoints\Whoami.fs" />
     <Compile Include="Endpoints\UserAvatar.fs" />
     <Compile Include="Endpoints\FrontPage.fs" />
-    <Compile Include="Endpoints\ViewSubmission.fs" />
-    <Compile Include="Endpoints\ViewUser.fs" />
+    <Compile Include="Endpoints\SubmissionView.fs" />
+    <Compile Include="Endpoints\UserView.fs" />
     <Compile Include="Endpoints\UserGallery.fs" />
+    <Compile Include="Endpoints\MessageSubmissions.fs" />
   </ItemGroup>
 
   <ItemGroup>

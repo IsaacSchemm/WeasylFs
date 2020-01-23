@@ -3,7 +3,7 @@
 open WeasylFs
 open System
 
-module ViewSubmission =
+module SubmissionView =
     type Request() =
         member val Anyway = false with get, set
         member val IncrementViews = false with get, set
