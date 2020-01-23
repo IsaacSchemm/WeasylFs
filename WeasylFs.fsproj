@@ -17,6 +17,7 @@
     <Compile Include="Endpoints\UserView.fs" />
     <Compile Include="Endpoints\UserGallery.fs" />
     <Compile Include="Endpoints\MessageSubmissions.fs" />
+    <Compile Include="Endpoints\MessageSummary.fs" />
   </ItemGroup>
 
   <ItemGroup>
