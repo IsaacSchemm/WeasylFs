@@ -1,10 +1,10 @@
 ﻿namespace WeasylFs
 
-open System
-
+/// An interface for any object that contains a Weasyl API key.
 type IWeasylCredentials =
     abstract member ApiKey: string with get
 
+/// An object that contains only a Weasyl API key.
 type WeasylCredentials = {
     apiKey: string
 } with
@@ -12,6 +12,3 @@ type WeasylCredentials = {
         member this.ApiKey = this.apiKey
     static member None =
         { apiKey = null }
-
-type IAlternateWeasylUri =
-    abstract member Uri: Uri with get

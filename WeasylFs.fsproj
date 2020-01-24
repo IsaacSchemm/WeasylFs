@@ -6,9 +6,11 @@
 
   <ItemGroup>
     <Compile Include="IWeasylCredentials.fs" />
+    <Compile Include="IAlternateWeasylUri.fs" />
     <Compile Include="Util.fs" />
     <Compile Include="Media.fs" />
     <Compile Include="Submission.fs" />
+    <Compile Include="User.fs" />
     <Compile Include="Endpoints\Version.fs" />
     <Compile Include="Endpoints\Whoami.fs" />
     <Compile Include="Endpoints\UserAvatar.fs" />
