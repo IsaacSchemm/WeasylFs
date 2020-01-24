@@ -15,7 +15,7 @@ module UserGallery =
         member this.QueryString =
             seq {
                 if this.Since.HasValue then
-                    yield ("since", this.Since.Value.ToString("o"))
+                    yield ("since", Util.ToIsoString this.Since.Value)
                 if this.Count.HasValue then
                     yield ("count", this.Count.Value.ToString())
                 if this.FolderId.HasValue then

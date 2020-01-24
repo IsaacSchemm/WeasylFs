@@ -31,6 +31,11 @@ module Util =
         return Json.deserialize<'a> json
     }
 
+    /// Converts a DateTimeOffset to a standard ISO 8601 UTC timestamp.
+    let ToIsoString (dt: DateTimeOffset) =
+        let str = dt.UtcDateTime.ToString("o")
+        str.Substring(0, 19) |> sprintf "%sZ"
+
     /// Builds a URL-encoded query string from a set of key/value pairs.
     let BuildQueryString (parameters: (string * string) seq) =
         parameters
