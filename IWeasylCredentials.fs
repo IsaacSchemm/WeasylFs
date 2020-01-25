@@ -6,9 +6,9 @@ type IWeasylCredentials =
 
 /// An object that contains only a Weasyl API key.
 type WeasylCredentials = {
-    apiKey: string
+    api_key: string
 } with
     interface IWeasylCredentials with
-        member this.ApiKey = this.apiKey
+        member this.ApiKey = this.api_key
     static member None =
-        { apiKey = null }
+        { api_key = null }
