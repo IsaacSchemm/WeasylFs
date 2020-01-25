@@ -18,7 +18,7 @@ module Util =
         let req =
             new Uri(baseUri, path)
             |> WebRequest.CreateHttp
-        req.Headers.Add("Accept", "application/json")
+        req.Accept <- "application/json"
         if not (isNull credentials.ApiKey) then
             req.Headers.Add("X-Weasyl-API-Key", credentials.ApiKey)
         req
