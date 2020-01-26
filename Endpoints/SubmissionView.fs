@@ -27,14 +27,14 @@ module SubmissionView =
         owner: string
         owner_login: string
         title: string
-        media: Map<string, Media list>
+        media: Map<string, WeasylMedia list>
         posted_at: DateTimeOffset
         ``type``: string
         
         embedlink: string option
         tags: string list
         comments: int
-        owner_media: Map<string, Media list>
+        owner_media: Map<string, WeasylMedia list>
         favorited: bool
         folder_name: string option
         favorites: int

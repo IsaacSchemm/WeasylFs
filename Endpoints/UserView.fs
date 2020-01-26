@@ -7,7 +7,7 @@ module UserView =
     let AsyncExecute credentials username =
         sprintf "api/users/%s/view" (WebUtility.UrlEncode username)
         |> WeasylUtil.CreateRequest credentials
-        |> WeasylUtil.AsyncReadJson<User>
+        |> WeasylUtil.AsyncReadJson<WeasylUser>
 
     let ExecuteAsync credentials username =
         AsyncExecute credentials username

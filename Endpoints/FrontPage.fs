@@ -20,7 +20,7 @@ module FrontPage =
     let AsyncExecute credentials (parameters: Request) =
         sprintf "api/submissions/frontpage?%s" parameters.QueryString
         |> WeasylUtil.CreateRequest credentials
-        |> WeasylUtil.AsyncReadJson<Submission list>
+        |> WeasylUtil.AsyncReadJson<WeasylSubmission list>
 
     let ExecuteAsync credentials parameters =
         AsyncExecute credentials parameters

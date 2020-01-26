@@ -23,7 +23,7 @@ module MessageSubmissions =
             |> WeasylUtil.BuildQueryString
 
     type Response = {
-        submissions: Submission list
+        submissions: WeasylSubmission list
         [<JsonField(Transform=typeof<DateTimeOffsetEpoch>)>]
         backtime: DateTimeOffset option
         [<JsonField(Transform=typeof<DateTimeOffsetEpoch>)>]

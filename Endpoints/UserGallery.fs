@@ -28,7 +28,7 @@ module UserGallery =
             |> WeasylUtil.BuildQueryString
 
     type Response = {
-        submissions: Submission list
+        submissions: WeasylSubmission list
         backid: int option
         nextid: int option
     } with
