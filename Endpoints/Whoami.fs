@@ -10,8 +10,8 @@ module Whoami =
 
     let AsyncExecute credentials =
         "api/whoami"
-        |> Util.CreateRequest credentials
-        |> Util.AsyncReadJson<Response>
+        |> WeasylUtil.CreateRequest credentials
+        |> WeasylUtil.AsyncReadJson<Response>
 
     let ExecuteAsync credentials =
         AsyncExecute credentials

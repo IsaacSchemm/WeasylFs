@@ -6,8 +6,8 @@ open System.Net
 module UserView =
     let AsyncExecute credentials username =
         sprintf "api/users/%s/view" (WebUtility.UrlEncode username)
-        |> Util.CreateRequest credentials
-        |> Util.AsyncReadJson<User>
+        |> WeasylUtil.CreateRequest credentials
+        |> WeasylUtil.AsyncReadJson<User>
 
     let ExecuteAsync credentials username =
         AsyncExecute credentials username

@@ -15,7 +15,7 @@ module UserAvatar =
             username
             |> Uri.EscapeUriString
             |> sprintf "api/useravatar?username=%s"
-            |> Util.CreateRequest credentials
+            |> WeasylUtil.CreateRequest credentials
         let! resp = req.AsyncGetResponse()
         use sr = new StreamReader(resp.GetResponseStream())
         let! json = sr.ReadToEndAsync() |> Async.AwaitTask

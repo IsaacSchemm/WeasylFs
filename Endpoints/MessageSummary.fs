@@ -13,8 +13,8 @@ module MessageSummary =
 
     let AsyncExecute credentials =
         "api/messages/summary"
-        |> Util.CreateRequest credentials
-        |> Util.AsyncReadJson<Response>
+        |> WeasylUtil.CreateRequest credentials
+        |> WeasylUtil.AsyncReadJson<Response>
 
     let ExecuteAsync credentials =
         AsyncExecute credentials

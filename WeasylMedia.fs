@@ -1,6 +1,6 @@
 ﻿namespace WeasylFs
 
-type Media = {
+type WeasylMedia = {
     url: string
     mediaid: int option
     links: Map<string, Media list> option

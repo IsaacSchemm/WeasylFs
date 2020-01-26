@@ -15,7 +15,7 @@ module UserGallery =
         member this.QueryString =
             seq {
                 if this.Since.HasValue then
-                    yield ("since", Util.ToIsoString this.Since.Value)
+                    yield ("since", WeasylUtil.ToIsoString this.Since.Value)
                 if this.Count.HasValue then
                     yield ("count", this.Count.Value.ToString())
                 if this.FolderId.HasValue then
@@ -25,7 +25,7 @@ module UserGallery =
                 if this.NextId.HasValue then
                     yield ("nextid", this.NextId.Value.ToString())
             }
-            |> Util.BuildQueryString
+            |> WeasylUtil.BuildQueryString
 
     type Response = {
         submissions: Submission list
@@ -41,8 +41,8 @@ module UserGallery =
 
     let AsyncExecute credentials (parameters: Request) username =
         sprintf "api/users/%s/gallery?%s" (WebUtility.UrlEncode username) (parameters.QueryString)
-        |> Util.CreateRequest credentials
-        |> Util.AsyncReadJson<Response>
+        |> WeasylUtil.CreateRequest credentials
+        |> WeasylUtil.AsyncReadJson<Response>
 
     let ExecuteAsync credentials parameters username =
         AsyncExecute credentials parameters username

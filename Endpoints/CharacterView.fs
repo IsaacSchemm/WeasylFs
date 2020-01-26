@@ -15,7 +15,7 @@ module CharacterView =
                 if this.IncrementViews then
                     yield ("increment_views", "true")
             }
-            |> Util.BuildQueryString
+            |> WeasylUtil.BuildQueryString
 
     type Response = {
         charid: int
@@ -58,8 +58,8 @@ module CharacterView =
 
     let AsyncExecute credentials (parameters: Request) submitid =
         sprintf "api/characters/%d/view?%s" submitid parameters.QueryString
-        |> Util.CreateRequest credentials
-        |> Util.AsyncReadJson<Response>
+        |> WeasylUtil.CreateRequest credentials
+        |> WeasylUtil.AsyncReadJson<Response>
 
     let ExecuteAsync credentials parameters submitid =
         AsyncExecute credentials parameters submitid

@@ -5,7 +5,7 @@ open System.Net
 open System.IO
 open FSharp.Json
 
-module Util =
+module WeasylUtil =
     /// The default Weasyl URL, used when the IWeasylCredentials object does not also implement IAlternateWeasylUri.
     let DefaultWeasylUri = new Uri("https://www.weasyl.com")
 

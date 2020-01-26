@@ -2,7 +2,7 @@
 
 open System
 
-type Submission = {
+type WeasylSubmission = {
     submitid: int option
     subtype: string option
 
@@ -13,7 +13,7 @@ type Submission = {
     owner: string
     owner_login: string
     title: string
-    media: Map<string, Media list>
+    media: Map<string, WeasylMedia list>
     posted_at: DateTimeOffset
     ``type``: string
 } with

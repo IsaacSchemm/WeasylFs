@@ -20,7 +20,7 @@ module MessageSubmissions =
                 if this.NextTime.HasValue then
                     yield ("nexttime", this.NextTime.Value.ToUnixTimeSeconds().ToString())
             }
-            |> Util.BuildQueryString
+            |> WeasylUtil.BuildQueryString
 
     type Response = {
         submissions: Submission list
@@ -38,8 +38,8 @@ module MessageSubmissions =
 
     let AsyncExecute credentials (parameters: Request) =
         sprintf "api/messages/submissions?%s" (parameters.QueryString)
-        |> Util.CreateRequest credentials
-        |> Util.AsyncReadJson<Response>
+        |> WeasylUtil.CreateRequest credentials
+        |> WeasylUtil.AsyncReadJson<Response>
 
     let ExecuteAsync credentials parameters =
         AsyncExecute credentials parameters

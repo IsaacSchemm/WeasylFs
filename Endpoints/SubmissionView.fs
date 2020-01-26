@@ -15,7 +15,7 @@ module SubmissionView =
                 if this.IncrementViews then
                     yield ("increment_views", "true")
             }
-            |> Util.BuildQueryString
+            |> WeasylUtil.BuildQueryString
 
     type Response = {
         submitid: int
@@ -54,8 +54,8 @@ module SubmissionView =
 
     let AsyncExecute credentials (parameters: Request) submitid =
         sprintf "api/submissions/%d/view?%s" submitid parameters.QueryString
-        |> Util.CreateRequest credentials
-        |> Util.AsyncReadJson<Response>
+        |> WeasylUtil.CreateRequest credentials
+        |> WeasylUtil.AsyncReadJson<Response>
 
     let ExecuteAsync credentials parameters submitid =
         AsyncExecute credentials parameters submitid

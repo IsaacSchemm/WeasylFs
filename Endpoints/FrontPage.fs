@@ -11,16 +11,16 @@ module FrontPage =
         member this.QueryString =
             seq {
                 if this.Since.HasValue then
-                    yield ("since", Util.ToIsoString this.Since.Value)
+                    yield ("since", WeasylUtil.ToIsoString this.Since.Value)
                 if this.Count.HasValue then
                     yield ("count", this.Count.Value.ToString())
             }
-            |> Util.BuildQueryString
+            |> WeasylUtil.BuildQueryString
 
     let AsyncExecute credentials (parameters: Request) =
         sprintf "api/submissions/frontpage?%s" parameters.QueryString
-        |> Util.CreateRequest credentials
-        |> Util.AsyncReadJson<Submission list>
+        |> WeasylUtil.CreateRequest credentials
+        |> WeasylUtil.AsyncReadJson<Submission list>
 
     let ExecuteAsync credentials parameters =
         AsyncExecute credentials parameters
