@@ -3,7 +3,7 @@
 open WeasylFs
 open System
 
-module SubmissionView =
+module CharacterView =
     type Request() =
         member val Anyway = false with get, set
         member val IncrementViews = false with get, set
@@ -18,9 +18,13 @@ module SubmissionView =
             |> Util.BuildQueryString
 
     type Response = {
-        submitid: int
-        subtype: string
-        description: string
+        charid: int
+        weight: string
+        species: string
+        content: string
+        height: string
+        gender: string
+        age: string
 
         rating: string
         link: string
@@ -53,7 +57,7 @@ module SubmissionView =
             |> Option.toNullable
 
     let AsyncExecute credentials (parameters: Request) submitid =
-        sprintf "api/submissions/%d/view?%s" submitid parameters.QueryString
+        sprintf "api/characters/%d/view?%s" submitid parameters.QueryString
         |> Util.CreateRequest credentials
         |> Util.AsyncReadJson<Response>
 
